@@ -3,6 +3,7 @@ import BabershopItem from '../(home)/_components/babershop-item'
 import Header from '../_components/header'
 import { db } from '../_lib/prisma'
 import { redirect } from 'next/navigation'
+import Search from '../(home)/_components/search'
 
 interface BarbershopPageProps {
   searchParams: {
@@ -27,7 +28,9 @@ const BarbershopsPage = async ({ searchParams }: BarbershopPageProps) => {
   return (
     <>
       <Header />
-      <div className="px-5 py-6">
+
+      <div className="px-5 py-6 flex flex-col gap-6">
+        <Search defaultValue={{ search: searchParams.search }} />
         <h1 className="text-gray-400 font-bold text-xs uppercase">
           Resultado para &quot;{searchParams.search}&quot;
         </h1>
