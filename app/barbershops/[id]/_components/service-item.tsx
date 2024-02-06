@@ -87,7 +87,6 @@ const ServiceItem = ({
         serviceId: service.id,
         barbershopId: barbershop.id,
         date: newDate,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         userId: (data.user as any).id,
       })
 
