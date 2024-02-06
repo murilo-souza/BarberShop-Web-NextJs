@@ -2,6 +2,7 @@ import { Barbershop } from '@prisma/client'
 import BabershopItem from '../(home)/_components/babershop-item'
 import Header from '../_components/header'
 import { db } from '../_lib/prisma'
+import { redirect } from 'next/navigation'
 
 interface BarbershopPageProps {
   searchParams: {
@@ -10,6 +11,10 @@ interface BarbershopPageProps {
 }
 
 const BarbershopsPage = async ({ searchParams }: BarbershopPageProps) => {
+  if (!searchParams.search) {
+    return redirect('/')
+  }
+
   const barbershops = await db.barbershop.findMany({
     where: {
       name: {
