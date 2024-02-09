@@ -39,7 +39,7 @@ export default async function Home() {
   return (
     <div>
       <Header />
-      <div className="md:flex md:flex-row md:items-center md:mt-[65px]">
+      <div className="md:flex md:flex-row md:items-center md:pt-[65px] md:pb-16 md:bg-blur md:bg-cover md:bg-no-repeat">
         <div>
           <div className="px-5 pt-5 md:px-32">
             <h2 className="text-xl font-bold">
@@ -95,7 +95,7 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="mt-6 md:mt-28">
+      <div className="mt-6 md:mt-10">
         <h2 className="px-5 md:px-32 text-xs md:text-xl mb-3 md:mb-5 uppercase md:capitalize text-gray-400 md:text-white font-bold">
           Recomentados
         </h2>
