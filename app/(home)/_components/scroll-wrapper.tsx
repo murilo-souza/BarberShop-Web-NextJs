@@ -5,10 +5,10 @@ import { ReactNode } from 'react'
 
 interface ScrollWrapperProps {
   children: ReactNode
-  boolean: boolean
+  withMargin?: boolean
 }
 
-const ScrollWrapper = ({ children }: ScrollWrapperProps) => {
+const ScrollWrapper = ({ children, withMargin = true }: ScrollWrapperProps) => {
   const [emblaRef] = useEmblaCarousel({
     align: 'start',
     skipSnaps: false,
@@ -16,7 +16,14 @@ const ScrollWrapper = ({ children }: ScrollWrapperProps) => {
   })
 
   return (
-    <div className="embla overflow-x-hidden md:ml-32" ref={emblaRef}>
+    <div
+      className={
+        withMargin
+          ? 'embla overflow-x-hidden md:ml-32'
+          : 'embla overflow-x-hidden'
+      }
+      ref={emblaRef}
+    >
       {children}
     </div>
   )

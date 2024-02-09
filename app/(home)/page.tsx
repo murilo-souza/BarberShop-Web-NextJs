@@ -80,7 +80,7 @@ export default async function Home() {
           <h2 className="md:px-0 md:text-sm md:mb-5 md:uppercase md:text-gray-400 md:font-bold">
             Mais Vistos
           </h2>
-          <ScrollWrapper>
+          <ScrollWrapper withMargin={false}>
             <div className="md:flex md:px-0 md:gap-5 md:[&::-webkit-scrollbar]:hidden md:max-w-[800px] ">
               {barbershops.map((barbershop: Barbershop) => (
                 <div
