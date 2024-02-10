@@ -10,11 +10,15 @@ import Link from 'next/link'
 import { Avatar, AvatarImage } from './ui/avatar'
 import { useSession } from 'next-auth/react'
 
-const Header = () => {
+interface HeaderProps {
+  hiddenMobile?: string
+}
+
+const Header = ({ hiddenMobile = '' }: HeaderProps) => {
   const { data } = useSession()
 
   return (
-    <header>
+    <header className={hiddenMobile}>
       <Card>
         <CardContent className="p-5 md:px-32 justify-between items-center flex flex-row">
           <Link href="/">
