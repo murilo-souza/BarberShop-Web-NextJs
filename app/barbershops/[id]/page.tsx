@@ -41,7 +41,7 @@ const BarbershopDetailsPage = async ({
     <>
       <Header hiddenMobile="hidden md:block" />
 
-      <div className="md:grid md:grid-cols-3 gap-10">
+      <div className="md:grid md:grid-cols-3 gap-10 md:mb-[100px]">
         <div className="md:col-span-2">
           <BarbershopInfo barbershop={barbershop} />
 
