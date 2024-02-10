@@ -24,6 +24,8 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { getDaysBookings } from '../_actions/get-day-bookings'
 import BookingInfo from '@/app/(home)/_components/booking-info'
+import useEmblaCarousel from 'embla-carousel-react'
+import ScrollWrapper from '@/app/(home)/_components/scroll-wrapper'
 
 interface ServiceItemProps {
   barbershop: Barbershop
@@ -150,7 +152,7 @@ const ServiceItem = ({
           </div>
 
           <div className="flex flex-col w-full">
-            <h2 className="font-bold">{service.name}</h2>
+            <h2 className="font-bold md:text-sm">{service.name}</h2>
             <p className="text-sm text-gray-400">{service.description}</p>
 
             <div className="flex items-center justify-between mt-3">
@@ -170,7 +172,7 @@ const ServiceItem = ({
                   <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
                     <SheetTitle>Fazer Reserva</SheetTitle>
                   </SheetHeader>
-                  <div className="py-6">
+                  <div className="py-6 md:hidden">
                     <Calendar
                       mode="single"
                       selected={date}
@@ -206,18 +208,61 @@ const ServiceItem = ({
                       }}
                     />
                   </div>
+                  <div className="py-6 md:block hidden">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={(date) => handleDateClick(date)}
+                      locale={ptBR}
+                      fromDate={addDays(new Date(), 1)}
+                      styles={{
+                        table: {
+                          width: 360,
+                        },
+                        head_cell: {
+                          width: '100%',
+                          textTransform: 'capitalize',
+                        },
+                        cell: {
+                          width: '100%',
+                        },
+
+                        button: {
+                          width: '100%',
+                        },
+
+                        nav_button_next: {
+                          width: '32px',
+                          height: '32px',
+                        },
+
+                        nav_button_previous: {
+                          width: '32px',
+                          height: '32px',
+                        },
+
+                        caption: {
+                          textTransform: 'capitalize',
+                        },
+                      }}
+                    />
+                  </div>
                   {date && (
-                    <div className=" flex  gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden py-6 px-5 border-t border-solid border-secondary">
-                      {timeList.map((time) => (
-                        <Button
-                          variant={hour === time ? 'default' : 'outline'}
-                          className="rounded-full"
-                          key={time}
-                          onClick={() => handleHourClick(time)}
-                        >
-                          {time}
-                        </Button>
-                      ))}
+                    <div className="border-t border-solid border-secondary">
+                      <ScrollWrapper withMargin={false}>
+                        <div className=" flex gap-3 [&::-webkit-scrollbar]:hidden py-6 px-5">
+                          {timeList.map((time) => (
+                            <Button
+                              variant={hour === time ? 'default' : 'outline'}
+                              className="rounded-full"
+                              key={time}
+                              onClick={() => handleHourClick(time)}
+                            >
+                              {time}
+                            </Button>
+                          ))}
+                        </div>
+                      </ScrollWrapper>
                     </div>
                   )}
 
@@ -240,6 +285,7 @@ const ServiceItem = ({
                     <Button
                       disabled={!hour || !date || submitIsLoading}
                       onClick={handleBookingSubmit}
+                      className="w-full"
                     >
                       {submitIsLoading && (
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
