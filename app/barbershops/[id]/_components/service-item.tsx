@@ -24,7 +24,6 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { getDaysBookings } from '../_actions/get-day-bookings'
 import BookingInfo from '@/app/(home)/_components/booking-info'
-import useEmblaCarousel from 'embla-carousel-react'
 import ScrollWrapper from '@/app/(home)/_components/scroll-wrapper'
 
 interface ServiceItemProps {
