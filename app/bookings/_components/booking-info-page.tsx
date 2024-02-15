@@ -122,8 +122,11 @@ const BookingInfoPage = ({
             barbershop={bookingSelected.barbershop}
           >
             <div>
-              <Badge variant="default" className="w-fit my-3">
-                Confirmado
+              <Badge
+                variant={isBookingConfirmed ? 'default' : 'secondary'}
+                className="w-fit my-3"
+              >
+                {isBookingConfirmed ? 'Confirmado' : 'Finalizado'}
               </Badge>
 
               <BookingInfo booking={bookingSelected} />
