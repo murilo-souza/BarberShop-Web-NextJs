@@ -39,10 +39,7 @@ const BarbershopInfoItem = ({ barbershop, children }: BarbershopInfoProps) => {
         <div className="mt-5 border-b border-solid border-secondary">
           <h3 className="font-bold text-sm uppercase mb-[10px]">Sobre nós</h3>
           <p className="font-normal text-sm text-gray-400 pb-5">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
-            amet tenetur optio corrupti, quaerat ratione iste quibusdam, ducimus
-            obcaecati, sequi ullam nostrum qui! Recusandae, architecto modi a
-            qui suscipit nihil!
+            {barbershop.description}
           </p>
         </div>
 
@@ -50,14 +47,14 @@ const BarbershopInfoItem = ({ barbershop, children }: BarbershopInfoProps) => {
           <div className="flex flex-row items-center justify-between pt-5">
             <div className="flex flex-row items-center gap-[10px]">
               <Smartphone />
-              (11) 98204-5108
+              {barbershop.phone1}
             </div>
             <Button variant="secondary">Copiar</Button>
           </div>
           <div className="flex flex-row items-center justify-between pt-5 border-b border-solid border-secondary pb-5">
             <div className="flex flex-row items-center gap-[10px]">
               <Smartphone />
-              (11) 98204-5108
+              {barbershop.phone2}
             </div>
             <Button variant="secondary">Copiar</Button>
           </div>
