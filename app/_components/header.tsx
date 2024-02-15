@@ -15,7 +15,7 @@ import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import SideMenu from './side-menu'
 import Link from 'next/link'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import {
   AlertDialog,
   AlertDialogAction,
