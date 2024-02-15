@@ -8,7 +8,18 @@ import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import SideMenu from './side-menu'
 import Link from 'next/link'
 import { Avatar, AvatarImage } from './ui/avatar'
-import { useSession } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from './ui/alert-dialog'
 
 interface HeaderProps {
   hiddenMobile?: string
@@ -16,6 +27,14 @@ interface HeaderProps {
 
 const Header = ({ hiddenMobile = '' }: HeaderProps) => {
   const { data } = useSession()
+
+  const handleLogoutClick = () => {
+    signOut()
+  }
+
+  const handleLoginClick = () => {
+    signIn('google')
+  }
 
   return (
     <header className={hiddenMobile}>
@@ -44,17 +63,90 @@ const Header = ({ hiddenMobile = '' }: HeaderProps) => {
               </Link>
             </Button>
             {!data?.user ? (
-              <Button variant="default">
-                <CircleUserRoundIcon size={18} className="md:mr-2" />
-                Perfil
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="default">
+                    <CircleUserRoundIcon size={18} className="md:mr-2" />
+                    Perfil
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="w-[318px] rounded-lg">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-base font-bold text-center">
+                      Faça login na plataforma
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="text-sm text-center">
+                      Conecte-se usando sua conta do Google ou Github.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter className="flex-row gap-3">
+                    <AlertDialogAction
+                      className="w-full bg-transparent hover:bg-secondary"
+                      onClick={handleLoginClick}
+                      asChild
+                    >
+                      <Button variant="outline">
+                        <Image
+                          src="/google.png"
+                          alt="Google"
+                          width={14}
+                          height={14}
+                          className="mr-2"
+                        />
+                        Google
+                      </Button>
+                    </AlertDialogAction>
+                    <AlertDialogAction
+                      className="w-full bg-transparent hover:bg-secondary"
+                      onClick={handleLogoutClick}
+                      asChild
+                    >
+                      <Button variant="outline">
+                        <Image
+                          src="/github.png"
+                          alt="Google"
+                          width={16}
+                          height={16}
+                          className="mr-2"
+                        />
+                        GitHub
+                      </Button>
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             ) : (
-              <Button variant="ghost" className="flex gap-2">
-                <Avatar className="md:w-8 md:h-8">
-                  <AvatarImage src={data.user.image ?? ''} />
-                </Avatar>
-                <p className="text-base font-bold">{data.user.name}</p>
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="ghost" className="flex gap-2">
+                    <Avatar className="md:w-8 md:h-8">
+                      <AvatarImage src={data.user.image ?? ''} />
+                    </Avatar>
+                    <p className="text-base font-bold">{data.user.name}</p>
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="w-[318px] rounded-lg">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-base font-bold text-center">
+                      Sair
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="text-sm text-center">
+                      Deseja sair da plataforma?
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter className="flex-row gap-3">
+                    <AlertDialogCancel className="w-full mt-0">
+                      Cancelar
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      className="w-full"
+                      onClick={handleLogoutClick}
+                    >
+                      Sair
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             )}
           </div>
         </CardContent>
