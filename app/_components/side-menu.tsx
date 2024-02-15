@@ -13,17 +13,15 @@ import { Button } from './ui/button'
 import { Avatar, AvatarImage } from './ui/avatar'
 import Link from 'next/link'
 
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
+import { AlertDialog, AlertDialogTrigger } from './ui/alert-dialog'
+import DialogSignIn from './dialog-signin'
 
 const SideMenu = () => {
   const { data } = useSession()
 
   const handleLogoutClick = () => {
     signOut()
-  }
-
-  const handleLoginClick = () => {
-    signIn('google')
   }
 
   return (
@@ -52,14 +50,15 @@ const SideMenu = () => {
             <CircleUserIcon className="text-secondary" />
             <h2 className="font-bold">Olá, faça seu login!</h2>
           </div>
-          <Button
-            variant="secondary"
-            className="w-full justify-start"
-            onClick={handleLoginClick}
-          >
-            <LogInIcon className="mr-2" />
-            Fazer Login
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger>
+              <Button variant="secondary" className="w-full justify-start">
+                <LogInIcon className="mr-2" />
+                Fazer Login
+              </Button>
+            </AlertDialogTrigger>
+            <DialogSignIn />
+          </AlertDialog>
         </div>
       )}
 

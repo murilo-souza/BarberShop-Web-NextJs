@@ -13,7 +13,7 @@ import {
 } from '@/app/_components/ui/sheet'
 import { Barbershop, Booking, Service } from '@prisma/client'
 import { ptBR } from 'date-fns/locale'
-import { signIn, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 import { generateDayTimeList } from '../_helpers/hours'
@@ -25,6 +25,11 @@ import { useRouter } from 'next/navigation'
 import { getDaysBookings } from '../_actions/get-day-bookings'
 import BookingInfo from '@/app/(home)/_components/booking-info'
 import ScrollWrapper from '@/app/(home)/_components/scroll-wrapper'
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+} from '@/app/_components/ui/alert-dialog'
+import DialogSignIn from '@/app/_components/dialog-signin'
 
 interface ServiceItemProps {
   barbershop: Barbershop
@@ -66,12 +71,6 @@ const ServiceItem = ({
 
   const handleHourClick = (time: string) => {
     setHour(time)
-  }
-
-  const handleBookingClick = () => {
-    if (!isAuthenticated) {
-      return signIn('google')
-    }
   }
 
   const handleBookingSubmit = async () => {
@@ -161,12 +160,22 @@ const ServiceItem = ({
                   currency: 'BRL',
                 }).format(service.price)}
               </p>
-              <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
-                <SheetTrigger>
-                  <Button variant="secondary" onClick={handleBookingClick}>
-                    Reservar
-                  </Button>
-                </SheetTrigger>
+              <Sheet
+                open={!isAuthenticated ? false : sheetIsOpen}
+                onOpenChange={setSheetIsOpen}
+              >
+                {isAuthenticated ? (
+                  <SheetTrigger asChild>
+                    <Button variant="secondary">Reservar</Button>
+                  </SheetTrigger>
+                ) : (
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button variant="secondary">Reservar</Button>
+                    </AlertDialogTrigger>
+                    <DialogSignIn />
+                  </AlertDialog>
+                )}
                 <SheetContent className="p-0">
                   <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
                     <SheetTitle>Fazer Reserva</SheetTitle>
