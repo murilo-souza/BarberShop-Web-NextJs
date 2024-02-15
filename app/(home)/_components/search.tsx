@@ -40,7 +40,7 @@ const Search = ({ defaultValue }: SearchProps) => {
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 md:max-w-[500px]">
       <Form {...form}>
         <form
           className="flex w-full gap-4"
