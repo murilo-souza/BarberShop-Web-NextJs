@@ -6,6 +6,8 @@ import { Button } from './ui/button'
 import {
   CalendarIcon,
   CircleUserRoundIcon,
+  HomeIcon,
+  LogOutIcon,
   MenuIcon,
   UserCircleIcon,
 } from 'lucide-react'
@@ -57,7 +59,14 @@ const Header = ({ hiddenMobile = '' }: HeaderProps) => {
             </SheetContent>
           </Sheet>
 
-          <div className="hidden md:flex md:flex-row md:items-center gap-6">
+          <div className="hidden md:flex md:flex-row md:items-center gap-3">
+            <Button variant="ghost" asChild>
+              <Link href="/">
+                <HomeIcon size={18} className="md:mr-2" />
+                Inicio
+              </Link>
+            </Button>
+
             <Button variant="ghost" asChild>
               <Link href="/bookings">
                 <CalendarIcon size={18} className="md:mr-2" />
@@ -85,8 +94,10 @@ const Header = ({ hiddenMobile = '' }: HeaderProps) => {
                       </AvatarFallback>
                     </Avatar>
                     <p className="text-base font-bold">{data.user.name}</p>
+                    <LogOutIcon size={18} className="text-destructive" />
                   </Button>
                 </AlertDialogTrigger>
+
                 <AlertDialogContent className="w-[318px] rounded-lg">
                   <AlertDialogHeader>
                     <AlertDialogTitle className="text-base font-bold text-center">
