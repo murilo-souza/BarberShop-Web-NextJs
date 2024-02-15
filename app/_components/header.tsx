@@ -3,11 +3,16 @@
 import Image from 'next/image'
 import { Card, CardContent } from './ui/card'
 import { Button } from './ui/button'
-import { CalendarIcon, CircleUserRoundIcon, MenuIcon } from 'lucide-react'
+import {
+  CalendarIcon,
+  CircleUserRoundIcon,
+  MenuIcon,
+  UserCircleIcon,
+} from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import SideMenu from './side-menu'
 import Link from 'next/link'
-import { Avatar, AvatarImage } from './ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import {
   AlertDialog,
@@ -32,8 +37,11 @@ const Header = ({ hiddenMobile = '' }: HeaderProps) => {
     signOut()
   }
 
-  const handleLoginClick = () => {
+  const handleLoginClickGoogle = () => {
     signIn('google')
+  }
+  const handleLoginClickGitHub = () => {
+    signIn('github')
   }
 
   return (
@@ -82,7 +90,7 @@ const Header = ({ hiddenMobile = '' }: HeaderProps) => {
                   <AlertDialogFooter className="flex-row gap-3">
                     <AlertDialogAction
                       className="w-full bg-transparent hover:bg-secondary"
-                      onClick={handleLoginClick}
+                      onClick={handleLoginClickGoogle}
                       asChild
                     >
                       <Button variant="outline">
@@ -98,7 +106,7 @@ const Header = ({ hiddenMobile = '' }: HeaderProps) => {
                     </AlertDialogAction>
                     <AlertDialogAction
                       className="w-full bg-transparent hover:bg-secondary"
-                      onClick={handleLogoutClick}
+                      onClick={handleLoginClickGitHub}
                       asChild
                     >
                       <Button variant="outline">
@@ -121,6 +129,9 @@ const Header = ({ hiddenMobile = '' }: HeaderProps) => {
                   <Button variant="ghost" className="flex gap-2">
                     <Avatar className="md:w-8 md:h-8">
                       <AvatarImage src={data.user.image ?? ''} />
+                      <AvatarFallback>
+                        <UserCircleIcon />
+                      </AvatarFallback>
                     </Avatar>
                     <p className="text-base font-bold">{data.user.name}</p>
                   </Button>
