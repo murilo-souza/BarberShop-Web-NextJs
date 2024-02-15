@@ -6,6 +6,8 @@ import BookingItem from '../_components/booking-item'
 import { Booking } from '@prisma/client'
 import { authOptions } from '../_lib/auth'
 
+import BookingInfoPage from './_components/booking-info-page'
+
 const BookingsPage = async () => {
   const session = await getServerSession(authOptions)
 
@@ -43,7 +45,7 @@ const BookingsPage = async () => {
   return (
     <>
       <Header />
-      <div className="px-5 py-6">
+      <div className="px-5 py-6 md:hidden ">
         <h1 className="text-xl font-bold">Agendamentos</h1>
 
         {confirmedBookings.length > 0 && (
@@ -62,15 +64,20 @@ const BookingsPage = async () => {
           <>
             <h2 className="text-gray-400 uppercase font-bold text-sm mt-6 mb-3">
               Finalizados
-              <div className="flex flex-col gap-3">
-                {finishedBookings.map((booking: Booking) => (
-                  <BookingItem key={booking.id} booking={booking} />
-                ))}
-              </div>
             </h2>
+            <div className="flex flex-col gap-3">
+              {finishedBookings.map((booking: Booking) => (
+                <BookingItem key={booking.id} booking={booking} />
+              ))}
+            </div>
           </>
         )}
       </div>
+
+      <BookingInfoPage
+        confirmedBookings={confirmedBookings}
+        finishedBookings={finishedBookings}
+      />
     </>
   )
 }

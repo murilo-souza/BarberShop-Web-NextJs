@@ -145,7 +145,6 @@ const BookingItem = ({ booking }: BookingItemProps) => {
               <AlertDialogTrigger asChild>
                 {isBookingConfirmed && (
                   <Button
-                    // onClick={handleCancelBooking}
                     className="w-full"
                     variant="destructive"
                     disabled={isDeleteLoading}
