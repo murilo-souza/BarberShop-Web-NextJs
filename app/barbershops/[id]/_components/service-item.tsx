@@ -176,7 +176,7 @@ const ServiceItem = ({
                     <DialogSignIn />
                   </AlertDialog>
                 )}
-                <SheetContent className="p-0">
+                <SheetContent className="p-0 overflow-y-auto [&::-webkit-scrollbar]:hidden xl:pb-4 2xl:pb-0">
                   <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
                     <SheetTitle>Fazer Reserva</SheetTitle>
                   </SheetHeader>
