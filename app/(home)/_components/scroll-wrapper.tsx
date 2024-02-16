@@ -19,7 +19,7 @@ const ScrollWrapper = ({ children, withMargin = true }: ScrollWrapperProps) => {
     <div
       className={
         withMargin
-          ? 'embla overflow-x-hidden md:ml-32 md:mr-32'
+          ? 'embla overflow-x-hidden md:ml-32 md:mr-32 md:hidden'
           : 'embla overflow-x-hidden'
       }
       ref={emblaRef}

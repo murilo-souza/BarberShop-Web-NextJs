@@ -9,6 +9,13 @@ import { Barbershop, Booking } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../_lib/auth'
 import ScrollWrapper from './_components/scroll-wrapper'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '../_components/ui/carousel'
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -84,18 +91,20 @@ export default async function Home() {
           <h2 className="md:px-0 md:text-sm md:mb-5 md:uppercase md:text-gray-400 md:font-bold">
             Mais Vistos
           </h2>
-          <ScrollWrapper withMargin={false}>
-            <div className="md:flex md:px-0 md:gap-5 md:[&::-webkit-scrollbar]:hidden 2xl:max-w-[750px] xl:max-w-[540px]">
+          <Carousel>
+            <CarouselContent className="md:flex md:px-0 md:gap-5 md:[&::-webkit-scrollbar]:hidden 2xl:max-w-[700px] xl:max-w-[470px]">
               {barbershops.map((barbershop: Barbershop) => (
-                <div
+                <CarouselItem
                   key={barbershop.id}
-                  className="md:min-w-[220px] md:max-w-[220px]"
+                  className="md:min-w-[220px] md:max-w-[220px] basis-1/2"
                 >
                   <BabershopItem barbershop={barbershop} />
-                </div>
+                </CarouselItem>
               ))}
-            </div>
-          </ScrollWrapper>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       </div>
 
@@ -115,6 +124,21 @@ export default async function Home() {
             ))}
           </div>
         </ScrollWrapper>
+
+        <Carousel className="md:ml-32 md:mr-48 hidden md:block">
+          <CarouselContent className="md:flex md:px-0 md:gap-5 md:[&::-webkit-scrollbar]:hidden">
+            {barbershops.map((barbershop: Barbershop) => (
+              <CarouselItem
+                key={barbershop.id}
+                className="md:min-w-[220px] md:max-w-[220px]"
+              >
+                <BabershopItem barbershop={barbershop} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </div>
 
       <div className="mt-6 mb-[4.5rem] md:mt-10">
@@ -133,6 +157,21 @@ export default async function Home() {
             ))}
           </div>
         </ScrollWrapper>
+
+        <Carousel className="md:ml-32 md:mr-48 hidden md:block">
+          <CarouselContent className="md:flex md:px-0 md:gap-5 md:[&::-webkit-scrollbar]:hidden">
+            {recomendedBarbershops.map((barbershop: Barbershop) => (
+              <CarouselItem
+                key={barbershop.id}
+                className="md:min-w-[220px] md:max-w-[220px]"
+              >
+                <BabershopItem barbershop={barbershop} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </div>
     </div>
   )
